@@ -1,0 +1,42 @@
+.hero-section {
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.ant-layout {
+  background: #fff;
+}
+
+.ant-card {
+  transition: all 0.3s;
+}
+
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.ant-layout {
+  background: #fff;
+}
+
+.ant-card {
+  transition: all 0.3s;
+}
+
+.login-form {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.register-form {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 24px;
+  border-radius: 8px;
+}

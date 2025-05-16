@@ -1,0 +1,96 @@
+.dashboard-sider {
+  box-shadow: 2px 0 8px 0 rgba(29, 35, 41, 0.05);
+}
+
+.logo {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.user-profile {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.user-info {
+  margin-top: 8px;
+  text-align: center;
+}
+
+.units-menu {
+  border-right: none;
+}
+
+.progress-summary {
+  padding: 16px;
+  text-align: center;
+  border-top: 1px solid #f0f0f0;
+}
+
+.dashboard-header {
+  background: #1890ff;
+  padding: 0 24px;
+}
+
+.dashboard-content {
+  margin: 24px;
+}
+
+.lesson-card {
+  border-radius: 8px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+}
+
+.word-card, .dialog-card, .paragraph-card {
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+.dialog-line {
+  margin-bottom: 16px;
+}
+
+.action-buttons {
+  margin-top: 16px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.evaluation-results {
+  margin-top: 24px;
+}
+
+.stats-card, .calendar-card {
+  border-radius: 8px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+}
+
+.skill-metrics .ant-progress {
+  margin-bottom: 8px;
+}
+
+.dashboard-footer {
+  text-align: center;
+  background: #f0f2f5;
+}
+
+@media (max-width: 992px) {
+  .dashboard-content {
+    margin: 16px;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+  }
+  
+  .action-buttons button {
+    width: 100%;
+  }
+}

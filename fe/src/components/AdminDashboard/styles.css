@@ -1,0 +1,134 @@
+/* Main Layout Styles */
+.site-layout {
+  min-height: 100vh;
+}
+
+.site-layout-background {
+  background: #fff;
+}
+
+.logo {
+  height: 32px;
+  margin: 16px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Dashboard Card Styles */
+.dashboard-card {
+  margin-bottom: 16px;
+}
+
+/* Table Styles */
+.ant-table {
+  background: #fff;
+}
+
+/* Modal Styles */
+.ant-modal-body {
+  padding-top: 16px;
+}
+
+/* Content Area Styles */
+.content-area {
+  padding: 24px;
+  min-height: 280px;
+  background: #fff;
+}
+
+/* Stats Card Styles */
+.stats-card {
+  text-align: center;
+}
+
+/* Progress Bar Styles */
+.progress-bar-container {
+  margin: 8px 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .ant-layout-sider {
+    position: absolute;
+    z-index: 100;
+    min-height: 100vh;
+  }
+  
+  .ant-layout-content {
+    margin-left: 0 !important;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Tag Colors */
+.ant-tag-success {
+  background: #f6ffed;
+  border-color: #b7eb8f;
+  color: #52c41a;
+}
+
+.ant-tag-error {
+  background: #fff2f0;
+  border-color: #ffccc7;
+  color: #ff4d4f;
+}
+
+.ant-tag-warning {
+  background: #fffbe6;
+  border-color: #ffe58f;
+  color: #faad14;
+}
+
+/* Custom Button Styles */
+.ant-btn-icon-only {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Form Item Styles */
+.ant-form-item {
+  margin-bottom: 16px;
+}
+
+/* Card Header Styles */
+.ant-card-head {
+  background: #fafafa;
+}
+
+/* Divider Styles */
+.ant-divider-horizontal {
+  margin: 16px 0;
+}
+
+/* Empty State Styles */
+.ant-empty {
+  margin: 24px 0;
+}
+
+/* Tabs Styles */
+.ant-tabs-tab {
+  padding: 12px 16px;
+}
+
+/* List Item Styles */
+.ant-list-item {
+  padding: 12px 0;
+}

@@ -1,0 +1,57 @@
+.roadmap-container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.roadmap-header-card {
+  margin-bottom: 24px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.learning-path-card {
+  margin-bottom: 24px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.daily-plan-card, .tips-card {
+  height: 100%;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.stage-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.stage-tasks, .stage-resources {
+  flex: 1;
+  min-width: 250px;
+}
+
+.stage-collapse {
+  background-color: transparent;
+}
+
+.stage-collapse .ant-collapse-content {
+  background-color: transparent;
+}
+
+.ant-steps-vertical .ant-steps-item-content {
+  min-height: 80px;
+}
+
+@media (max-width: 768px) {
+  .roadmap-container {
+    padding: 12px;
+  }
+  
+  .stage-content {
+    flex-direction: column;
+    gap: 16px;
+  }
+}
