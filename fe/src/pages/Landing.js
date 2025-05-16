@@ -36,7 +36,8 @@ import {
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-
+import { useContext }            from 'react';
+import { AuthContext }           from '../context/AuthContext';
 const { Header, Content, Footer } = Layout;
 const { Meta } = Card;
 const { Step } = Steps;
@@ -125,6 +126,8 @@ const pricingPlans = [
 ];
 
 const EnglishPracticeLanding = () => {
+  const { signIn, signUp } = useContext(AuthContext);
+
   const [isLoginVisible, setIsLoginVisible] = useState(false);
   const [isRegisterVisible, setIsRegisterVisible] = useState(false);
   const navigate = useNavigate();
@@ -142,18 +145,38 @@ const EnglishPracticeLanding = () => {
     setIsRegisterVisible(false);
   };
 
-  const onFinishLogin = (values) => {
-    console.log('Received values of form: ', values);
-    setIsLoginVisible(false);
-    navigate('/dashboard');
+  const onFinishLogin = async (values) => {
+    try {
+      const user = await signIn({
+        username: values.username,
+        password: values.password,
+      });
+      setIsLoginVisible(false);
+      if (user.role === 'admin') {
+        navigate('/admin-dashboard');
+      } else {
+        navigate('/user-dashboard');
+      }
+    } catch (err) {
+      console.error('Login failed', err);
+    }
   };
-
-  const onFinishRegister = (values) => {
-    console.log('Received values of form: ', values);
-    setIsRegisterVisible(false);
-    navigate('/dashboard');
+  const onFinishRegister = async (values) => {
+    try {
+      await signUp({
+        username: values.username,
+        email:    values.email,
+        password: values.password,
+        name:     values.fullname,
+        phone:    values.phone
+      });
+      setIsRegisterVisible(false);
+      navigate('/user-dashboard');
+    } catch (err) {
+      console.error('Registration failed', err);
+    }
   };
-
+  
   return (
     <Layout className="layout">
       {/* Header with Animation */}
