@@ -10,72 +10,65 @@ import {
   Avatar,
   Progress,
   Divider,
-  List,
   Calendar,
   Tag,
-  Tabs,
   Space,
   Statistic,
   Badge,
   Spin,
 } from 'antd';
 import {
-  SoundOutlined,
-  UserOutlined,
-  BookOutlined,
-  TrophyOutlined,
-  TeamOutlined,
-  ScheduleOutlined,
   MessageOutlined,
-  CheckCircleOutlined,
+  TeamOutlined,
+  BookOutlined,
+  ScheduleOutlined,
+  TrophyOutlined,
+  UserOutlined,
   ClockCircleOutlined,
+  CheckCircleOutlined,
   AudioOutlined,
   PlayCircleOutlined,
   PauseOutlined,
 } from '@ant-design/icons';
-import { motion } from 'framer-motion';
 import axios from 'axios';
 import './Dashboard.css';
 import { AuthContext } from '../context/AuthContext';
 
 const { Header, Content, Footer, Sider } = Layout;
-const { Title, Text, Paragraph } = Typography;
-const { TabPane } = Tabs;
+const { Title, Text } = Typography;
 
 export default function Dashboard() {
   const { user } = useContext(AuthContext);
-  const userLevel = parseInt(user.level, 10); // assuming '1'–'4'
+  const userLevel = parseInt(user.level, 10);
 
   const [collapsed, setCollapsed] = useState(false);
   const [activeUnit, setActiveUnit] = useState(null);
-  const [isPlaying, setIsPlaying] = useState({});
-  const [isRecording, setIsRecording] = useState({});
-  const [activeTab, setActiveTab] = useState('vocabulary');
+  const [selectedLevel, setSelectedLevel] = useState(userLevel);
 
-  // API-fetched lessons and chapters
   const [lessons, setLessons] = useState([]);
   const [chapters, setChapters] = useState([]);
   const [currentChapter, setCurrentChapter] = useState(null);
   const [loadingLessons, setLoadingLessons] = useState(false);
 
+  const [isPlaying, setIsPlaying] = useState({});
+  const [isRecording, setIsRecording] = useState({});
+
   // Units config
   const allUnits = [
     { key: '1', title: 'Daily Conversations', icon: <MessageOutlined />, minLevel: 1 },
-    { key: '2', title: 'Business English', icon: <TeamOutlined />, minLevel: 2 },
-    { key: '3', title: 'Academic Discussions', icon: <BookOutlined />, minLevel: 3 },
-    { key: '4', title: 'Travel Phrases', icon: <ScheduleOutlined />, minLevel: 1 },
-    { key: '5', title: 'Job Interviews', icon: <TrophyOutlined />, minLevel: 2 },
+    { key: '2', title: 'Business English',     icon: <TeamOutlined />,    minLevel: 2 },
+    { key: '3', title: 'Academic Discussions', icon: <BookOutlined />,    minLevel: 3 },
+    { key: '4', title: 'Travel Phrases',       icon: <ScheduleOutlined />,minLevel: 1 },
+    { key: '5', title: 'Job Interviews',       icon: <TrophyOutlined />,  minLevel: 2 },
   ];
-  const units = allUnits.filter(u => u.minLevel <= userLevel);
+  const units = allUnits.filter(u => u.minLevel <= selectedLevel);
 
-  // fetch lessons when activeUnit changes
+  // Fetch lessons when activeUnit changes
   useEffect(() => {
     if (!activeUnit) return;
     setLoadingLessons(true);
     axios
-      .get(`${process.env.REACT_APP_API_URL}/lessons`, {
-        params: { unit: activeUnit },
-      })
+      .get(`${process.env.REACT_APP_API_URL}/lessons`, { params: { unit: activeUnit } })
       .then(res => {
         const data = res.data;
         setLessons(data);
@@ -86,19 +79,18 @@ export default function Dashboard() {
       .finally(() => setLoadingLessons(false));
   }, [activeUnit]);
 
-  // TTS
+  // Text-to-speech
   const speakText = text => {
     if ('speechSynthesis' in window) {
-      const utter = new SpeechSynthesisUtterance(text);
-      utter.lang = 'en-US';
-      utter.rate = 0.9;
-      utter.onstart = () => setIsPlaying(p => ({ ...p, [text]: true }));
-      utter.onend = () => setIsPlaying(p => ({ ...p, [text]: false }));
-      window.speechSynthesis.speak(utter);
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-US'; u.rate = 0.9;
+      u.onstart = () => setIsPlaying(p => ({ ...p, [text]: true }));
+      u.onend   = () => setIsPlaying(p => ({ ...p, [text]: false }));
+      window.speechSynthesis.speak(u);
     }
   };
 
-  // record stub
+  // Toggle mock recording
   const toggleRecord = id => {
     setIsRecording(r => ({ ...r, [id]: !r[id] }));
   };
@@ -140,15 +132,7 @@ export default function Dashboard() {
             <Menu.Item key={unit.key} icon={unit.icon}>
               <Space>
                 {unit.title}
-                <Tag
-                  color={
-                    unit.minLevel === 1
-                      ? 'blue'
-                      : unit.minLevel === 2
-                      ? 'orange'
-                      : 'red'
-                  }
-                >
+                <Tag color={unit.minLevel === 1 ? 'blue' : unit.minLevel === 2 ? 'orange' : 'red'}>
                   L{unit.minLevel}
                 </Tag>
               </Space>
@@ -181,7 +165,7 @@ export default function Dashboard() {
 
         <Content className="dashboard-content">
           <Row gutter={[16, 16]}>
-            {/* Lesson Cards Area */}
+            {/* Lessons Area */}
             <Col xs={24} lg={16}>
               <Card className="lesson-card" style={{ minHeight: 400 }}>
                 {!activeUnit ? (
@@ -213,35 +197,21 @@ export default function Dashboard() {
                                 title={<Text strong>{lesson.title}</Text>}
                                 extra={<Tag>U{lesson.unit}</Tag>}
                               >
-                                <Text type="secondary">
-                                  {lesson.description}
-                                </Text>
+                                <Text type="secondary">{lesson.description}</Text>
                                 <div style={{ marginTop: 12 }}>
                                   <Button
                                     icon={<AudioOutlined />}
-                                    type={
-                                      isRecording[lesson.id]
-                                        ? 'danger'
-                                        : 'default'
-                                    }
+                                    type={isRecording[lesson.id] ? 'danger' : 'default'}
                                     onClick={() => toggleRecord(lesson.id)}
                                     style={{ marginRight: 8 }}
                                   >
-                                    {isRecording[lesson.id]
-                                      ? 'Stop'
-                                      : 'Record'}
+                                    {isRecording[lesson.id] ? 'Stop' : 'Record'}
                                   </Button>
                                   <Button
                                     icon={
-                                      isPlaying[lesson.id] ? (
-                                        <PauseOutlined />
-                                      ) : (
-                                        <PlayCircleOutlined />
-                                      )
+                                      isPlaying[lesson.id] ? <PauseOutlined /> : <PlayCircleOutlined />
                                     }
-                                    onClick={() =>
-                                      speakText(lesson.title)
-                                    }
+                                    onClick={() => speakText(lesson.title)}
                                   />
                                 </div>
                               </Card>
@@ -257,10 +227,31 @@ export default function Dashboard() {
             {/* Right Sidebar */}
             <Col xs={24} lg={8}>
               <Card className="stats-card">
+                {/* ───── Level Picker ───── */}
+                <Title level={5}>Select Level</Title>
+                <Space style={{ marginBottom: 16 }}>
+                  {[1, 2, 3, 4].map(lv => (
+                    <Button
+                      key={lv}
+                      type={lv === selectedLevel ? 'primary' : 'default'}
+                      onClick={() => setSelectedLevel(lv)}
+                    >
+                      Level {lv}
+                    </Button>
+                  ))}
+                </Space>
+                <Divider/>
+
                 <Title level={4}>Your Progress</Title>
                 <Statistic
                   title="Completion"
-                  value={Math.round((lessons.length ? lessons.filter(l => l.chapter <= currentChapter).length : 0) * 100 / (chapters.length || 1))}
+                  value={Math.round(
+                    (lessons.length
+                      ? lessons.filter(l => l.chapter <= currentChapter).length
+                      : 0) *
+                      100 /
+                      (chapters.length || 1)
+                  )}
                   suffix="%"
                 />
                 <Divider />
@@ -269,6 +260,7 @@ export default function Dashboard() {
                 <Progress percent={user.pronunciation} status="active" />
                 <Progress percent={user.fluency} status="active" />
               </Card>
+
               <Card className="calendar-card" style={{ marginTop: 16 }}>
                 <Calendar fullscreen={false} />
               </Card>
