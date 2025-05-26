@@ -7,6 +7,7 @@ import Dashboard from "./pages/Dashboard";
 import AdminLayout from "./components/AdminDashboard/AdminLayout";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { AdminRoute } from "./components/AdminRoute";
+import SpeakingRoom from "./pages/SpeakingRoom";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/roadmap" element={<RoadmapPage />} />
           <Route path="/user-dashboard" element={<Dashboard />} />
         </Route>
+        <Route path="/speaking-room" element={<SpeakingRoom />} />
 
         {/* protected admin routes */}
         <Route element={<AdminRoute />}>

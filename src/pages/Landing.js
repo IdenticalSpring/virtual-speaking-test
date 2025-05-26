@@ -182,7 +182,7 @@ const EnglishPracticeLanding = () => {
       {/* Header with Animation */}
       <Header style={{ position: 'fixed', zIndex: 1, width: '100%', background: '#fff' }}>
         <div className="logo" style={{ float: 'left', marginRight: '24px' }}>
-          <span style={{ fontSize: '20px', fontWeight: 'bold', color: '#1890ff' }}>Trường đại học kỹ thuật hậu cần - CAND</span>
+          <span style={{ fontSize: '20px', fontWeight: 'bold', color: '#1890ff' }}>Phòng luyện nói tiếng Anh trường Đại học Kỹ thuật-Hậu cần CAND</span>
         </div>
         <Menu theme="light" mode="horizontal" defaultSelectedKeys={['1']} style={{ lineHeight: '64px' }}>
           <Menu.Item key="1">Trang chủ</Menu.Item>
@@ -236,7 +236,7 @@ const EnglishPracticeLanding = () => {
             animate={{ y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            Luyện Tiếng Anh tại Trường đại học kỹ thuật hậu cần - CAND
+            Phòng luyện nói tiếng Anh trường Đại học Kỹ thuật-Hậu cần CAND
           </motion.h1>
           <motion.p 
             style={{ fontSize: '20px', maxWidth: '800px', margin: '0 auto 40px' }}
@@ -244,7 +244,7 @@ const EnglishPracticeLanding = () => {
             animate={{ y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            Tham gia nền tảng thực hành tiếng Anh của chúng tôi với phương pháp giảng dạy đã được chứng minh.
+            Tham gia nền tảng thực hành tiếng Anh của chúng tôi với sự hỗ trợ của AI
           </motion.p>
           <motion.div
             initial={{ opacity: 0 }}
