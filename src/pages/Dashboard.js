@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
-
 import {
   Layout,
   Menu,
@@ -40,18 +38,6 @@ const { Header, Content, Footer, Sider } = Layout;
 const { Title, Text } = Typography;
 
 export default function Dashboard() {
-    useEffect(() => {
-    axios.post("http://localhost:5000/speak")
-      .then((res) => {
-        setGeminiFeedback(res.data.feedback_gemini);
-
-      })
-      .catch((err) => {
-        setGeminiFeedback(res.data.feedback_gemini);
-
-      });
-  }, []);
-
   const { user } = useContext(AuthContext);
   const userLevel = parseInt(user.level, 10);
 
@@ -66,8 +52,6 @@ export default function Dashboard() {
 
   const [isPlaying, setIsPlaying] = useState({});
   const [isRecording, setIsRecording] = useState({});
-  const [geminiFeedback, setGeminiFeedback] = useState("");
-
 
   // Units config
   const allUnits = [
@@ -257,11 +241,6 @@ export default function Dashboard() {
                   ))}
                 </Space>
                 <Divider/>
-                  <Divider />
-                      <Title level={5}>Feedback từ Gemini</Title>
-                      <Text type="secondary">
-                        {geminiFeedback || "Đang lấy phản hồi..."}
-                      </Text>
 
                 <Title level={4}>Your Progress</Title>
                 <Statistic
